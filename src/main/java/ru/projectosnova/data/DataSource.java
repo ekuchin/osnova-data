@@ -1,6 +1,8 @@
 package ru.projectosnova.data;
 
-abstract class DataSource {
+import javax.json.bind.annotation.JsonbProperty;
+
+abstract public class DataSource {
 
 	private String name;
 	private String type;
@@ -8,22 +10,92 @@ abstract class DataSource {
 	private String host;
 	private String port;
 	private String uri;
-	private String username;
+	private String user;
 	private String password;
 
 	//CRUD operations
-	abstract String create(String className, String host, String uri, String json, String params);
-	abstract String read(String host, String uri, String unid,String params);
-	abstract String update(String host, String uri, String unid, String json, String replaceAllItems, String params);
-	abstract String delete(String host, String uri, String unid, String params);
+	abstract String create(String json);
+	abstract String create(String json, String params);
+
+	abstract String read(String unid,String params);
+	abstract String read(String unid);
+
+	abstract boolean update(String unid, String json);
+	abstract boolean update(String unid, String json, boolean replaceAllItems);
+	abstract boolean update(String unid, String json, String params);
+	abstract boolean update(String unid, String json, boolean replaceAllItems, String params);
+
+	abstract boolean delete(String unid, String params);
+	abstract boolean delete(String unid);
 
 	//Collection operations
-	//public String search(String host, String uri, String collection, String params);
-	//public String searchByKey(String host, String uri, String collection, String key, String sortBy, boolean sortAscending, boolean exactMatch, String params);
-	//public String getNavigationData(String host, String uri, String collection, String page, String count, String sortBy, boolean sortAscending, String search, boolean exactMatch, String params);
+	//public String search(String collection, String params);
+	//public String searchByKey(String collection, String key, String sortBy, boolean sortAscending, boolean exactMatch, String params);
+	//public String getNavigationData(String collection, String page, String count, String sortBy, boolean sortAscending, String search, boolean exactMatch, String params);
 
+	public String getName(){
+		return name;
+	}
 	public String getType(){
 		return type;
+	}
+	public String getProtocol(){
+		return protocol;
+	}
+	public String getHost(){
+		return host;
+	}
+	public String getPort(){
+		return port;
+	}
+	public String getUri(){
+		return uri;
+	}
+	public String getUserName(){
+		return user;
+	}
+	public String getPassword(){
+		return password;
+	}
+
+	@JsonbProperty("name")
+	public void setName(String name){
+		this.name=name;
+	}
+
+	@JsonbProperty("type")
+	public void setType(String type){
+		this.type=type;
+	}
+
+	@JsonbProperty("protocol")
+	public void setProtocol(String protocol){
+		this.protocol=protocol;
+	}
+
+	@JsonbProperty("host")
+	public void setHost(String host){
+		this.host=host;
+	}
+
+	@JsonbProperty("port")
+	public void setPort(String port){
+		this.port=port;
+	}
+
+	@JsonbProperty("uri")
+	public void setUri(String uri){
+		this.uri=uri;
+	}
+
+	@JsonbProperty("user")
+	public void setUser(String user){
+		this.user=user;
+	}
+
+	@JsonbProperty("password")
+	public void setPassword(String password){
+		this.password=password;
 	}
 
 }
