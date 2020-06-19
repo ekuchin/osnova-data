@@ -3,7 +3,6 @@ package ru.projectosnova.data;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
@@ -26,11 +25,11 @@ public class DominoDataSource extends DataSource {
             throw new Exception("Error "+response.statusCode()+" "+response.body());
         }
 
-    };
+    }
 
     public String create(String objectTypeName, String json)throws Exception{
         return(this.create(objectTypeName,json,""));
-    };
+    }
 
     //Read
     public String read(String unid,String params) throws Exception {
@@ -44,11 +43,11 @@ public class DominoDataSource extends DataSource {
         else{
             throw new Exception("Error "+response.statusCode()+" "+response.body());
         }
-    };
+    }
 
     public String read(String unid) throws Exception {
         return this.read(unid,"");
-    };
+    }
 
     //Update
     public boolean update(String unid, String json, boolean replaceAllItems, String params)throws Exception{
@@ -111,7 +110,7 @@ public class DominoDataSource extends DataSource {
 
     private HttpResponse<String> sendRequest(String url, String method, String json, String params) throws IOException, InterruptedException {
 
-        if(params!="") {
+        if(!params.equals("")) {
             url=url+"&"+params;
         }
         HttpClient client = HttpClient.newBuilder()
@@ -124,7 +123,6 @@ public class DominoDataSource extends DataSource {
                 .setHeader("Content-Type", "application/json")
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return response;
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }

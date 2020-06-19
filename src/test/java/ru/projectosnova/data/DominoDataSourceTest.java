@@ -8,7 +8,6 @@ import ru.projectosnova.config.InvalidConfigObjectException;
 import ru.projectosnova.config.InvalidConfigStructureException;
 
 import javax.json.Json;
-import javax.json.JsonObject;
 import java.io.IOException;
 
 public class DominoDataSourceTest extends Assert {
