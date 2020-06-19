@@ -1,6 +1,13 @@
 package ru.projectosnova.data;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 abstract public class DataSource {
 
@@ -14,19 +21,19 @@ abstract public class DataSource {
 	private String password;
 
 	//CRUD operations
-	abstract String create(String json);
-	abstract String create(String json, String params);
+	abstract String create(String objectTypeName,String json)throws Exception;
+	abstract String create(String objectTypeName, String json, String params)throws Exception;
 
-	abstract String read(String unid,String params);
-	abstract String read(String unid);
+	abstract String read(String unid,String params)throws Exception;
+	abstract String read(String unid)throws Exception;
 
-	abstract boolean update(String unid, String json);
-	abstract boolean update(String unid, String json, boolean replaceAllItems);
-	abstract boolean update(String unid, String json, String params);
-	abstract boolean update(String unid, String json, boolean replaceAllItems, String params);
+	abstract boolean update(String unid, String json)throws Exception;
+	abstract boolean update(String unid, String json, boolean replaceAllItems)throws Exception;
+	abstract boolean update(String unid, String json, String params)throws Exception;
+	abstract boolean update(String unid, String json, boolean replaceAllItems, String params)throws Exception;
 
-	abstract boolean delete(String unid, String params);
-	abstract boolean delete(String unid);
+	abstract boolean delete(String unid, String params)throws Exception;
+	abstract boolean delete(String unid)throws Exception;
 
 	//Collection operations
 	//public String search(String collection, String params);
@@ -97,5 +104,4 @@ abstract public class DataSource {
 	public void setPassword(String password){
 		this.password=password;
 	}
-
 }

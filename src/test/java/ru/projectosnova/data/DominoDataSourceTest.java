@@ -7,6 +7,8 @@ import ru.projectosnova.config.ConfigNotFoundException;
 import ru.projectosnova.config.InvalidConfigObjectException;
 import ru.projectosnova.config.InvalidConfigStructureException;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.io.IOException;
 
 public class DominoDataSourceTest extends Assert {
@@ -18,13 +20,33 @@ public class DominoDataSourceTest extends Assert {
      }
 
     @Test
-    public void testCRUD(){
-        String unid = "";
-        //String unid = domino.create("")
+    public void testCRUD() throws Exception {
+        System.out.println("Test CRUD");
+        String jsonCreate = Json.createObjectBuilder()
+                .add("firstName", "Ivan")
+                .add("lastName", "Ivanoff")
+                .add("age", "40")
+                .build().toString();
 
-        String s = domino.read("");
+        //String unid ="CC2ED5ECBF1FD5B5452582D800525863";
+        //String unid = "F54576A3FEF3F4194525858C00272552";
+        String unid = domino.create("Person",jsonCreate);
+        System.out.println(unid);
+        System.out.println(domino.read(unid));
 
-        assertEquals(s,"YWdhcG92OjEyM3F3ZQ==");
+        String jsonUpdate = Json.createObjectBuilder()
+                .add("middleName", "Ivanovich")
+                .add("age","30")
+                .build().toString();
+
+        if(domino.update(unid, jsonUpdate)){
+            System.out.println(domino.read(unid));
+        }
+
+        if(domino.delete(unid)){
+            assertTrue(true);
+        }
+
     }
 
 }
