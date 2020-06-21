@@ -41,7 +41,7 @@ public class DominoDataSource extends DataSource {
             return response.body();
         }
         else{
-            throw new Exception("Error "+response.statusCode()+" "+response.body());
+            throw new Exception(response.body());
         }
     }
 
@@ -58,13 +58,14 @@ public class DominoDataSource extends DataSource {
         if (replaceAllItems){
             method="PUT";
         }
+
         HttpResponse<String> response = sendRequest(url, method,json,params);
 
         if (response.statusCode()==200){
             return(true);
         }
         else{
-            throw new Exception("Error "+response.statusCode()+" "+response.body());
+            throw new Exception(response.body());
         }
 
     }
@@ -83,13 +84,14 @@ public class DominoDataSource extends DataSource {
     public boolean delete(String unid, String params)throws Exception{
 
         String url=getUrl()+"/api/data/documents/unid/"+unid;
+
         HttpResponse<String> response = sendRequest(url, "DELETE","",params);
 
         if (response.statusCode()==200){
             return(true);
         }
         else{
-            throw new Exception("Error "+response.statusCode()+" "+response.body());
+            throw new Exception(response.body());
         }
     }
 
@@ -97,8 +99,37 @@ public class DominoDataSource extends DataSource {
         return this.delete(unid,"");
     }
 
+    public String getCollection(String collection, String params) throws Exception {
+        String url=getUrl()+"/api/data/collections/name/"+collection;
+
+        HttpResponse<String> response = sendRequest(url, "GET","",params);
+
+        if (response.statusCode()==200){
+            return response.body();
+        }
+        else{
+            throw new Exception(response.body());
+        }
+
+    }
+
+    public String searchByKey(String collection, String key, boolean exactMatch, String params) throws Exception {
+        String keyParams="systemcolumns=0x0000&compact=true";
+        keyParams+="&keys="+key+"&keysexactmatch=";
+        if(exactMatch) {
+            keyParams+="true";
+        }
+        else {
+            keyParams+="false";
+        }
+        if (!params.equals("")){
+            keyParams+="&"+params;
+        }
+        return getCollection(collection,keyParams);
+    }
+
+    //Private
     private String getBasicAuthToken(){
-        //YWdhcG92OjEyM3F3ZQ==
         String token = getUserName()+":"+getPassword();
         token = "Basic "+Base64.getEncoder().encodeToString(token.getBytes());
         return (token);
@@ -111,7 +142,7 @@ public class DominoDataSource extends DataSource {
     private HttpResponse<String> sendRequest(String url, String method, String json, String params) throws IOException, InterruptedException {
 
         if(!params.equals("")) {
-            url=url+"&"+params;
+            url=url+"?"+params;
         }
         HttpClient client = HttpClient.newBuilder()
                 .build();
@@ -125,4 +156,5 @@ public class DominoDataSource extends DataSource {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
 }

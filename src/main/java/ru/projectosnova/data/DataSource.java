@@ -29,9 +29,8 @@ abstract public class DataSource {
 	abstract boolean delete(String unid)throws Exception;
 
 	//Collection operations
-	//public String search(String collection, String params);
-	//public String searchByKey(String collection, String key, String sortBy, boolean sortAscending, boolean exactMatch, String params);
-	//public String getNavigationData(String collection, String page, String count, String sortBy, boolean sortAscending, String search, boolean exactMatch, String params);
+	abstract String getCollection(String collection, String params) throws Exception;
+	abstract String searchByKey(String collection, String key, boolean exactMatch, String params)throws Exception;
 
 	public String getName(){
 		return name;

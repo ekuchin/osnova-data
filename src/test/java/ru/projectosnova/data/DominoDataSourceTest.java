@@ -48,4 +48,12 @@ public class DominoDataSourceTest extends Assert {
 
     }
 
+    @Test
+    public void testCollections() throws Exception {
+        String s = domino.getCollection("mk198","");
+        System.out.println("Collection");
+        System.out.println(s);
+        assertTrue(true);
+    }
+
 }
