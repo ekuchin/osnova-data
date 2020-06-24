@@ -15,7 +15,7 @@ public class DominoDataSourceTest extends Assert {
 
     @Before
     public void init() throws ConfigNotFoundException, UnsupportedDataSourceException, InvalidConfigObjectException, InvalidConfigStructureException, InvalidDataSourceException, IOException {
-        domino = DataSourceFactory.build("datasources","mk2auto");
+        domino = DataSourceFactory.build("mk2auto");
      }
 
     @Test

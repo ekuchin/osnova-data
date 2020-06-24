@@ -9,7 +9,7 @@ public class DataSourceTest extends Assert {
     public void datasourceNotFoundInConfigThrowsCorrectException(){
         boolean flag=false;
         try {
-            DataSource ds = DataSourceFactory.build("datasources", "nosuchname");
+            DataSource ds = DataSourceFactory.build("nosuchname");
         }
         catch(InvalidDataSourceException e){
             System.out.println(e.getMessage());
@@ -25,7 +25,7 @@ public class DataSourceTest extends Assert {
     public void incorrectDatasourceTypeThrowsException(){
         boolean flag=false;
         try {
-            DataSource ds = DataSourceFactory.build("datasources", "oracletest");
+            DataSource ds = DataSourceFactory.build( "oracletest");
         }
         catch(UnsupportedDataSourceException e){
             System.out.println(e.getMessage());
