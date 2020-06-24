@@ -4,8 +4,6 @@ import javax.json.bind.annotation.JsonbProperty;
 
 abstract public class DataSource {
 
-	public static final String DATASOURCES_CONFIG_NAME ="datasources";
-
 	private String name;
 	private String type;
 	private String protocol;
@@ -16,23 +14,23 @@ abstract public class DataSource {
 	private String password;
 
 	//CRUD operations
-	abstract String create(String objectTypeName,String json)throws Exception;
-	abstract String create(String objectTypeName, String json, String params)throws Exception;
+	abstract public String create(String objectTypeName,String json)throws Exception;
+	abstract public String create(String objectTypeName, String json, String params)throws Exception;
 
-	abstract String read(String unid,String params)throws Exception;
-	abstract String read(String unid)throws Exception;
+	abstract public String read(String unid,String params)throws Exception;
+	abstract public String read(String unid)throws Exception;
 
-	abstract boolean update(String unid, String json)throws Exception;
-	abstract boolean update(String unid, String json, boolean replaceAllItems)throws Exception;
-	abstract boolean update(String unid, String json, String params)throws Exception;
-	abstract boolean update(String unid, String json, boolean replaceAllItems, String params)throws Exception;
+	abstract public boolean update(String unid, String json)throws Exception;
+	abstract public boolean update(String unid, String json, boolean replaceAllItems)throws Exception;
+	abstract public boolean update(String unid, String json, String params)throws Exception;
+	abstract public boolean update(String unid, String json, boolean replaceAllItems, String params)throws Exception;
 
-	abstract boolean delete(String unid, String params)throws Exception;
-	abstract boolean delete(String unid)throws Exception;
+	abstract public boolean delete(String unid, String params)throws Exception;
+	abstract public boolean delete(String unid)throws Exception;
 
 	//Collection operations
-	abstract String getCollection(String collection, String params) throws Exception;
-	abstract String searchByKey(String collection, String key, boolean exactMatch, String params)throws Exception;
+	abstract public String getCollection(String collection, String params) throws Exception;
+	abstract public String searchByKey(String collection, String key, boolean exactMatch, String params)throws Exception;
 
 	public String getName(){
 		return name;

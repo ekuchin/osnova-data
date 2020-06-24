@@ -39,7 +39,6 @@
           <groupId>org.eclipse</groupId>
           <artifactId>yasson</artifactId>
           <version>1.0.7</version>
-          <scope>test</scope>
       </dependency>
 
 
