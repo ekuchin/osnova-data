@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.io.StringReader;
 
 public class DataSourceFactory {
+    public final static String DATASOURCES_CONFIG_NAME ="datasources";
 
-    public static DataSource build(String config, String name) throws InvalidDataSourceException, InvalidConfigStructureException, InvalidConfigObjectException, IOException, ConfigNotFoundException, UnsupportedDataSourceException {
-        Config datasources = new Config(config);
+    public static DataSource build(String name) throws InvalidDataSourceException, InvalidConfigStructureException, InvalidConfigObjectException, IOException, ConfigNotFoundException, UnsupportedDataSourceException {
+        Config datasources = new Config(DATASOURCES_CONFIG_NAME);
         String jsonString = datasources.getStringByProperty("name", name);
 
         if (jsonString==null){
@@ -31,6 +32,12 @@ public class DataSourceFactory {
             default:
                throw new UnsupportedDataSourceException("Unsupported datasource - "+jsonObject.getString("type"));
          }
+    }
+
+    public static DataSource build(String config, String objectType) throws ConfigNotFoundException, UnsupportedDataSourceException, InvalidConfigObjectException, InvalidConfigStructureException, InvalidDataSourceException, IOException {
+        Config conf = new Config(config);
+        String dataSourceName = conf.getPropertyByProperty("datasource", "type",objectType);
+        return DataSourceFactory.build(dataSourceName);
     }
 
 }
