@@ -60,7 +60,7 @@
 
 
   <build>
-    <finalName>osnova3-data</finalName>
+    <finalName>osnova-data</finalName>
    <plugins>
 
  <plugin>

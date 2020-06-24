@@ -4,6 +4,8 @@ import javax.json.bind.annotation.JsonbProperty;
 
 abstract public class DataSource {
 
+	public static final String DATASOURCES_CONFIG_NAME ="datasources";
+
 	private String name;
 	private String type;
 	private String protocol;
